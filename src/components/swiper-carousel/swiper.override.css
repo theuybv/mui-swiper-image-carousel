@@ -1,0 +1,13 @@
+.swiper-pagination-bullet {
+    opacity: 1;
+    background: white;
+}
+
+.swiper-pagination-bullet-active {
+    opacity: 1;
+    background: var(--swiper-theme-color);
+}
+
+.swiper-button-disabled {
+    visibility: hidden !important;
+}
