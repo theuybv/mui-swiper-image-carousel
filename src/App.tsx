@@ -54,18 +54,18 @@ function App() {
                 <Grid item xs={12}>
                     <Typography variant={'h3'} textAlign={'center'}>React Swiper Image Carousel</Typography>
                 </Grid>
-                {demoOptions.map(options => {
-                    return <Grid item xs={12} md={6}>
+                {demoOptions.map((options, index) => {
+                    return <Grid key={index} item xs={12} md={6}>
                         <>
                             <SwiperCarousel {...options}/>
                             <ul>
-                                {Object.keys(options).filter(key => key !== 'images').map((optionKey) => {
+                                {Object.keys(options).filter(key => key !== 'images').map((optionKey, index) => {
                                     const optionsString = options[optionKey as keyof typeof options]
-                                    return <>
+                                    return <div key={index}>
                                         <li>
                                             <strong>{optionKey}: </strong> {JSON.stringify(optionsString)}
                                         </li>
-                                    </>
+                                    </div>
                                 })}
                                 <li><strong>totalImages: </strong>{options.images.length}</li>
                             </ul>

@@ -22,6 +22,10 @@ export const defaultCarouselOptions: CarouselOptions = {
     sourceImageAspectRatio: "3/2",
 }
 
+export const defaultCarouselState: CarouselState = {
+    containerWidth: 0,
+    currentIndex: 0
+}
 
 export const CarouselContext = createContext<CarouselOptions>(defaultCarouselOptions)
 export type CarouselState = {
@@ -30,8 +34,5 @@ export type CarouselState = {
 }
 export const CarouselStateContext = createContext<[CarouselState,
     Dispatch<SetStateAction<CarouselState>>
-]>([{
-    containerWidth: 0,
-    currentIndex: 0
-}, () => {
+]>([defaultCarouselState, () => {
 }])

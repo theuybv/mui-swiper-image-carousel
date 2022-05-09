@@ -1,9 +1,11 @@
 import {FC, useContext, useEffect, useState} from "react";
 import {CarouselContext, CarouselStateContext} from "./context/CarouselContext";
-import {Swiper, SwiperSlide} from 'swiper/react';
+import {SwiperSlide} from 'swiper/react';
 import {Autoplay, EffectFade, Pagination} from "swiper";
 import {Swiper as SwiperClass} from "swiper/types";
-import {SlideImage} from "./SlideImage";
+import {StyledSlideImage} from "./styled-components/StyledSlideImage";
+import {StyledSwiper} from "./styled-components/StyledSwiper";
+
 
 export const MainSwiper: FC = () => {
     const options = useContext(CarouselContext)
@@ -45,8 +47,7 @@ export const MainSwiper: FC = () => {
         return () => window.removeEventListener('resize', onWindowResize)
     })
 
-
-    return <Swiper
+    return <StyledSwiper
         autoplay={options.autoPlay}
         pagination={{
             clickable: true,
@@ -57,18 +58,16 @@ export const MainSwiper: FC = () => {
         slidesPerView={1}
         onSlideChange={onSlideChange}
         onSwiper={onSwiper}
-        style={{
-            maxHeight: maxImageHeight,
-            aspectRatio: imageAspectRatio,
-            backgroundColor: 'black'
-        }}
-    >
+        maxImageHeight={maxImageHeight}
+        imageAspectRatio={imageAspectRatio}>
         {images.map((src, index) => {
             return <SwiperSlide key={index + src}>
-                <SlideImage style={{
-                    objectFit: 'contain'
-                }} src={src} alt={src} aspectratio={imageAspectRatio}/>
+                <StyledSlideImage
+                    aspectRatio={imageAspectRatio}
+                    objectFit={'contain'}
+                    src={src}
+                    alt={src}/>
             </SwiperSlide>
         })}
-    </Swiper>
+    </StyledSwiper>
 }

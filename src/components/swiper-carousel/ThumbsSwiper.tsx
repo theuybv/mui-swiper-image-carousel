@@ -1,11 +1,13 @@
 import {FC, MouseEvent, useContext, useEffect, useState} from "react";
 import {CarouselContext, CarouselStateContext} from "./context/CarouselContext";
-import {Swiper, SwiperSlide} from "swiper/react";
-import {SlideImage} from "./SlideImage";
+import {SwiperSlide} from "swiper/react";
+import {StyledSlideImage} from "./styled-components/StyledSlideImage";
 import {Navigation} from "swiper";
 import {Swiper as SwiperClass} from "swiper/types";
-import {Box, ButtonBase, IconButton} from "@mui/material";
+import {Box, ButtonBase} from "@mui/material";
 import {ChevronLeft, ChevronRight} from "@mui/icons-material";
+import {ThumbsNavIconButton} from "./ThumbsNavIconButton";
+import {StyledSwiper} from "./styled-components/StyledSwiper";
 
 export const ThumbsSwiper: FC = () => {
     const [currentState, setCurrentState] = useContext(CarouselStateContext)
@@ -44,11 +46,10 @@ export const ThumbsSwiper: FC = () => {
         prevEl: '.thumbs-prev',
     }
 
-    return <div>
-        <Swiper
-            style={{
-                width: currentState.containerWidth
-            }}
+    return <>
+        <StyledSwiper
+            backgroundColor={'white'}
+            width={currentState.containerWidth}
             modules={[Navigation]}
             navigation={navigationOptions}
             slidesPerView={thumbsPerView}
@@ -60,9 +61,7 @@ export const ThumbsSwiper: FC = () => {
                     <ButtonBase onClick={e => onThumbClick(e, index)} style={{
                         borderBottom: index === currentState.currentIndex ? '4px solid var(--swiper-theme-color)' : 'none',
                     }}>
-                        <SlideImage style={{
-                            objectFit: 'cover'
-                        }} aspectratio={options.thumbAspectRatio} src={src}/>
+                        <StyledSlideImage aspectRatio={options.thumbAspectRatio} objectFit={'cover'} src={src}/>
                     </ButtonBase>
                 </SwiperSlide>
             })}
@@ -80,16 +79,16 @@ export const ThumbsSwiper: FC = () => {
                         justifyContent={'space-between'}
                         width={"100%"}
                         height={"100%"}>
-                        <IconButton sx={{backgroundColor: "white"}} disableRipple className={'thumbs-prev'} style={{pointerEvents: 'auto'}} size={'small'}>
-                            <ChevronLeft />
-                        </IconButton>
-                        <IconButton sx={{backgroundColor: "white"}} disableRipple className={'thumbs-next'} style={{pointerEvents: 'auto'}}  size={'small'}>
-                            <ChevronRight />
-                        </IconButton>
+                        <ThumbsNavIconButton className={'thumbs-prev'}>
+                            <ChevronLeft/>
+                        </ThumbsNavIconButton>
+                        <ThumbsNavIconButton className={'thumbs-next'}>
+                            <ChevronRight/>
+                        </ThumbsNavIconButton>
                     </Box>
                 </Box>
             </span>
-        </Swiper>
-    </div>
+        </StyledSwiper>
+    </>
 }
 
